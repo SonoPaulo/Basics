@@ -1,0 +1,94 @@
+import random
+
+# prawdopodobienstwo wylosowania szóstki
+prawd1 = 1
+prawd2 = 1
+a = [49, 48, 47, 46, 45, 44]
+b = [6, 5, 4, 3, 2, 1]
+
+for i in a:
+    x = i * 1
+    prawd1 *= x
+
+for i in b:
+    x = i * 1
+    prawd2 *= x
+
+p = int(prawd1 / prawd2)
+
+# generator liczb od 1 do 49
+gen = range(50)
+zbiór = list(gen)
+zbiór.pop(0)
+
+# losowanie 6 liczb
+wylosowane_zbiór = []
+k = 0
+while (k < 6):
+    wylosowane = (random.randint(1, 49))
+    if wylosowane not in wylosowane_zbiór:
+        wylosowane_zbiór.append(wylosowane)
+        k += 1
+    else:
+        continue
+
+# użytkownik wybiera 6 liczb od 1 do 49
+wybrane = []
+i = 0
+while i < 6:
+    x = int(input("Podaj liczbę od 1 do 49:"))
+    if (x < 1 or x > 49):
+        print("wybierz od 1 do 49!")
+    elif x not in wybrane:
+        wybrane.append(x)
+        i += 1
+    else:
+        print("już wybrałeś tą wartość")
+
+# teraz przedstawienie ile liczb trafił użytkownik
+los = wylosowane_zbiór
+los.sort()
+
+wybór = wybrane
+wybór.sort()
+
+wspólne = []
+wspólne.sort()
+
+for i in los:
+    if i in wybór:
+        wspólne.append(i)
+
+ilość = len(wspólne)
+
+# prawdopodobienstwo wylosowania liczb użytkownika
+prawd1 = 1
+prawd2 = 1
+a = [49, 48, 47, 46, 45, 44]
+c = a[0:ilość]
+
+gen = range(ilość+1)
+b = list(gen)
+b.pop(0)
+
+for i in c:
+    x = i * 1
+    prawd1 *= x
+
+for i in b:
+    x = i * 1
+    prawd2 *= x
+
+userp = 1/(prawd1 / prawd2)
+percentage = "{:.2%}".format(userp)
+userp = percentage = "{:.2%}".format(userp)
+
+# rezultaty
+print("Prawdopodobieństwo wylosowania szóstki wynosi 1 do ", p)
+
+if ilość >0:
+    print("Prawdopodobieństwo wylosowania: ", ilość, "wynosi: ", userp)
+
+print("Wylosowane liczby to: ", los)
+print("Wybrane przez Ciebie liczby to: ", wybór)
+print("Trafiłeś: ", ilość, "na 6 liczb. Trafione liczby to: ", wspólne)
